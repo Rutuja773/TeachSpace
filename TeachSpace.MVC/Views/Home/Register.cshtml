@@ -1,0 +1,67 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/Content/css/Register.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>*@
+    <script defer src="~/Content/Js/Register.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form id="signup" class="form">
+            <h1>Signup</h1>
+            <div class="form-field">
+                <label for="firstname">FirstName</label>
+                <input type="text" name="firstname" id="txtFirstName" autocomplete="off">
+                <small></small>
+            </div>
+            <div class="form-field">
+                <label for="lastname">LastName</label>
+                <input type="text" name="lastname" id="txtLastName" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="txtEmail" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="txtPassword" autocomplete="off">
+                <small></small>
+            </div>
+
+
+            <div class="form-field">
+                <label for="confirmpassword">Confirm Password:</label>
+                <input type="password" name="confirmpassword" id="txtConfirmPassword" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="txtAddress" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <label for="dob">DOB</label>
+                <input type="date" name="dob" id="txtDOB" autocomplete="off">
+                <small></small>
+            </div>
+
+            <div class="form-field">
+                <input type="submit" class="btn btn-success btn-format" value="Register">
+            </div>
+           
+        </form>
+
+    </div>
+    
+
+
+
+</body>
+</html>
