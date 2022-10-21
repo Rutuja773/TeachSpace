@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f73bcc84122b4fbb81628a6a93915683" Name="Diagram1">
+      <Diagram DiagramId="03b56ccfc9934035959c92312078e748" Name="Diagram1">
         <EntityTypeShape EntityType="TeachSpaceDBModel.Audit" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="TeachSpaceDBModel.Schedule" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="TeachSpaceDBModel.Topic" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />

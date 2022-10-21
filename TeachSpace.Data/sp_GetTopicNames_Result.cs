@@ -11,14 +11,9 @@ namespace TeachSpace.Data
 {
     using System;
     
-    public partial class sp_GetSchedule_Result
+    public partial class sp_GetTopicNames_Result
     {
         public int ID { get; set; }
-        public string FirstName { get; set; }
-        public string Email { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<System.TimeSpan> Time { get; set; }
-        public string MODE { get; set; }
     }
 }

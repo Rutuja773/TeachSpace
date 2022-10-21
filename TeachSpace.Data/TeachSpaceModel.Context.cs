@@ -32,15 +32,15 @@ namespace TeachSpace.Data
         public virtual DbSet<Topic> Topics { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual int sp_CreateSchedule(string userEmail, string topicName, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, string mode, ObjectParameter errorMessage)
+        public virtual int sp_CreateSchedule(Nullable<int> userID, Nullable<int> topicID, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, string mode, ObjectParameter errorMessage)
         {
-            var userEmailParameter = userEmail != null ?
-                new ObjectParameter("UserEmail", userEmail) :
-                new ObjectParameter("UserEmail", typeof(string));
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
     
-            var topicNameParameter = topicName != null ?
-                new ObjectParameter("TopicName", topicName) :
-                new ObjectParameter("TopicName", typeof(string));
+            var topicIDParameter = topicID.HasValue ?
+                new ObjectParameter("TopicID", topicID) :
+                new ObjectParameter("TopicID", typeof(int));
     
             var dateParameter = date.HasValue ?
                 new ObjectParameter("Date", date) :
@@ -54,12 +54,22 @@ namespace TeachSpace.Data
                 new ObjectParameter("Mode", mode) :
                 new ObjectParameter("Mode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateSchedule", userEmailParameter, topicNameParameter, dateParameter, timeParameter, modeParameter, errorMessage);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_CreateSchedule", userIDParameter, topicIDParameter, dateParameter, timeParameter, modeParameter, errorMessage);
         }
     
         public virtual ObjectResult<sp_GetSchedule_Result> sp_GetSchedule()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSchedule_Result>("sp_GetSchedule");
+        }
+    
+        public virtual ObjectResult<sp_GetTopicNames_Result> sp_GetTopicNames()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTopicNames_Result>("sp_GetTopicNames");
+        }
+    
+        public virtual ObjectResult<sp_GetUsersEmail_Result> sp_GetUsersEmail()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUsersEmail_Result>("sp_GetUsersEmail");
         }
     
         public virtual int sp_Registeration(string firstName, string lastName, string address, string email, string password, Nullable<System.DateTime> dOB, Nullable<bool> isAdmin, ObjectParameter errorMessage)

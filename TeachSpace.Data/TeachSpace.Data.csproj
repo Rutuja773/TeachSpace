@@ -65,6 +65,12 @@
     <Compile Include="sp_GetSchedule_Result.cs">
       <DependentUpon>TeachSpaceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetTopicNames_Result.cs">
+      <DependentUpon>TeachSpaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUsersEmail_Result.cs">
+      <DependentUpon>TeachSpaceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="TeachSpaceModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

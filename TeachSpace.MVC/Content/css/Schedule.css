@@ -66,14 +66,14 @@ align-items: center;
 }
 
     .home-section nav {
-        height: 80px;
+        height: 60px;
         background: #fff;
         padding: 0 20px;
         display: flex;
         align-items: center;
     }
 
-        .home-section nav .sidebar-button {
+        /*.home-section nav .sidebar-button {
             display: flex;
             align-items: center;
             font-size: 25px;
@@ -85,13 +85,17 @@ align-items: center;
                 margin-right: 10px;
             }
 
-        .home-section nav .search-box {
-            background: red;
-            height: 50px;
-            width: 550px;
+        .home-section nav .search-box {*/
+           /* background: red;*/
+            /*height: 50px;
+            width: 100px;
             margin: 0 20px;
             position: relative;
             border-radius: 6px;
+        }
+
+        input{
+            max-width:50px;
         }
 
 nav .search-box input {
@@ -112,14 +116,14 @@ nav .search-box .bx-search-alt-2 {
     top: 10%;
     transform: translate(-30%);
     right: 5px;
-    width: 40px;
+    width: 50px;
     background: #2697FF;
     border-radius: 6px;
     color: #fff;
     font-size: 22px;
     line-height: 40px;
     text-align: center;
-}
+}*/
 
 /*main Content*/
 .main-content{
@@ -128,6 +132,8 @@ nav .search-box .bx-search-alt-2 {
     margin-right:700px;
     padding:15px;
     box-shadow:0 0 8px rgb(230,230,230);
+    background:#ff6a00;
+    width:200px;
 }
 .main-content .info-card{
     display:flex;
@@ -136,10 +142,26 @@ nav .search-box .bx-search-alt-2 {
     flex-wrap:wrap;
     margin: 20px 0;
 }
-.main-content .info-card .crad{
-    width:31%;
-    min-height:250px;
+.main-content .info-card .card{
+    width:70%;
+    min-height:30px;
     padding:20px;
-    background: linear-gradient(to left #EFEEF1, #0A2558);
+    background: #fff;
     border-radius:10px;
+}
+
+
+.btn-popup{
+    padding:10px 30px;
+    background: #00ffff;
+    border:0;
+    outline:none;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:100;
+    border-radius:30px;
+}
+
+.form-control {
+    max-width: 30%;
 }

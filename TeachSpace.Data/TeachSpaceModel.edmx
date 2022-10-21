@@ -79,14 +79,16 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="sp_CreateSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="UserEmail" Type="varchar" Mode="In" />
-          <Parameter Name="TopicName" Type="varchar" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="TopicID" Type="int" Mode="In" />
           <Parameter Name="Date" Type="date" Mode="In" />
           <Parameter Name="Time" Type="time" Mode="In" />
           <Parameter Name="Mode" Type="varchar" Mode="In" />
           <Parameter Name="ErrorMessage" Type="varchar" Mode="InOut" />
         </Function>
         <Function Name="sp_GetSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetTopicNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetUsersEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Registeration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="varchar" Mode="In" />
           <Parameter Name="LastName" Type="varchar" Mode="In" />
@@ -207,14 +209,16 @@
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <FunctionImport Name="sp_CreateSchedule">
-            <Parameter Name="UserEmail" Mode="In" Type="String" />
-            <Parameter Name="TopicName" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="TopicID" Mode="In" Type="Int32" />
             <Parameter Name="Date" Mode="In" Type="DateTime" />
             <Parameter Name="Time" Mode="In" Type="Time" />
             <Parameter Name="Mode" Mode="In" Type="String" />
             <Parameter Name="ErrorMessage" Mode="InOut" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetSchedule" ReturnType="Collection(TeachSpaceDBModel.sp_GetSchedule_Result)" />
+          <FunctionImport Name="sp_GetTopicNames" ReturnType="Collection(TeachSpaceDBModel.sp_GetTopicNames_Result)" />
+          <FunctionImport Name="sp_GetUsersEmail" ReturnType="Collection(TeachSpaceDBModel.sp_GetUsersEmail_Result)" />
           <FunctionImport Name="sp_Registeration">
             <Parameter Name="FirstName" Mode="In" Type="String" />
             <Parameter Name="LastName" Mode="In" Type="String" />
@@ -230,10 +234,18 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Column1" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
           <Property Type="DateTime" Name="Date" Nullable="true" />
           <Property Type="Time" Name="Time" Nullable="true" />
           <Property Type="String" Name="MODE" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetTopicNames_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUsersEmail_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -301,10 +313,26 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="MODE" ColumnName="MODE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetTopicNames" FunctionName="TeachSpaceDBModel.Store.sp_GetTopicNames">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TeachSpaceDBModel.sp_GetTopicNames_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetUsersEmail" FunctionName="TeachSpaceDBModel.Store.sp_GetUsersEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TeachSpaceDBModel.sp_GetUsersEmail_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
