@@ -104,5 +104,28 @@ namespace TeachSpace.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Registeration", firstNameParameter, lastNameParameter, addressParameter, emailParameter, passwordParameter, dOBParameter, isAdminParameter, errorMessage);
         }
+    
+        public virtual ObjectResult<sp_GetUserSchedule_Result> sp_GetUserSchedule(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUserSchedule_Result>("sp_GetUserSchedule", userIDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetAudit_Result> sp_GetAudit()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetAudit_Result>("sp_GetAudit");
+        }
+    
+        public virtual int CreateTopic(string name)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateTopic", nameParameter);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿//Get The Email List
+
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: 'https://localhost:44372/api/Schedule/GetUsersEmail',
@@ -12,6 +14,9 @@
         }
     });
 });
+
+
+//Get the Topic Name List
 
 $(document).ready(function () {
     $.ajax({
@@ -28,91 +33,122 @@ $(document).ready(function () {
     });
 });
 
-$('#btnschedule').click(function () {
-    $.ajax({
-        url: 'https://localhost:44372/api/Schedule/AddSchedule',
-        method: "POST",
-        data: {
-            UserID: $('#departmentsDropdown').val(),
-            TopicID: $('#txttopicname').val(),
-            Date: $('#txtdate').val(),
-            Time: $('#txttime').val(),
-            Mode: $('#txtmode').val()
 
-        },
-        success: function () {
-            alert("Scheduled")
+//Post The Schedule
 
-        },
-        error: function () {
-        }
-    })
+$('#btnsubmitschedule').click(function () {
+    var userid = $('#departmentsDropdown').val();
+    var topicid = $('#txttopicname').val();
+    
+    if (parseInt(userid) > 0 && (parseInt(topicid) > 0)) {    //validating user id and topic id
+        console.log(userid)
+        $.ajax({
+            url: 'https://localhost:44372/api/Schedule/AddSchedule',
+            method: "POST",
+            data: {
+                UserID: $('#departmentsDropdown').val(),
+                TopicID: $('#txttopicname').val(),
+                Date: $('#txtdate').val(),
+                Time: $('#txttime').val(),
+                Mode: $('#txtmode').val()
+
+            },
+            success: function () {
+                /*alert("Scheduled")*/
+                $("#validation-success").html("<div class='k-messagebox k-messagebox-error'>Schedule Successfully</div>");
+
+            },
+            error: function () {
+
+            }
+        })
+    }
+    else {
+        /*alert("error");*/
+        $("#validation-success").html("<div class='k-messagebox k-messagebox-error'>Schedule Failed</div>");
+
+    }
+
+
+       
 })
 
 
 
+
+//To Display The List of Schedule List Assign for User 
+
+var schedulelist = document.getElementById('TSchedule')
+var schedule = document.getElementById('schedulecontent')
+var auditlist = document.getElementById('TAudit')
+
+
+$('#btnschedule').click(function () {
+    
+    auditlist.classList.remove("show")
+    schedulelist.classList.remove("show")
+    schedule.classList.remove("hide")
+
+})
+
+//To Display The Schedule for a specific User
+
+
 $('#btnstudentlist').click(function () {
+   
+    schedule.classList.add("hide")
+    auditlist.classList.remove("show")
+    schedulelist.classList.add("show")
 
-    $('#Load').html("Loading....")
-    $.get("https://localhost:44372/api/Schedule/GetSchedule", null, Bind);
-    function Bind(AppointmentList) {
-        var SetData = $('#scheduleList');
-        for (var i = 0; i < AppointmentList.length; i++) {
-            var Data = "<tr class='row_" + AppointmentList[i].ID + "'>" +
-                "<td>" + AppointmentList[i].ID + "</td>" +
-                "<td>" + AppointmentList[i].FirstName + "</td>" +
-                "<td>" + AppointmentList[i].Email + "</td>" +
-                "<td>" + AppointmentList[i].Name + "</td>" +
-                "<td>" + AppointmentList[i].Date + "</td>" +
-                "<td>" + AppointmentList[i].Time + "</td>" +
-                "<td>" + AppointmentList[i].MODE + "</td>" +
-                
-                //"<td>" + "<a href='#' class='btn btn-warning' onclick='EditStyleList(" + StyleList[i].ID + ")'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                //"<td>" + "<a href='#'' class='btn btn-danger' onclick='DeleteStyleList(" + StyleList[i].ID + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>"
-                "</tr>";
+    $('#scheduleList').empty();
 
-
-
-            SetData.append(Data);
-            $("#Load").html(" ")
-        }
-
-
-
+$('#Load').html("Loading....")
+$.get("https://localhost:44372/api/Schedule/GetSchedule", null, Bind);
+function Bind(ScheduleList) {
+    var SetData = $('#scheduleList');
+    for (var i = 0; i < ScheduleList.length; i++) {
+        var Data = "<tr class='row_" + ScheduleList[i].ID + "'>" +
+           /* "<td>" + ScheduleList[i].ID + "</td>" +*/
+            "<td>" + ScheduleList[i].FirstName + "</td>" +
+            "<td>" + ScheduleList[i].Email + "</td>" +
+            "<td>" + ScheduleList[i].Name + "</td>" +
+            "<td>" + ScheduleList[i].Date + "</td>" +
+            "<td>" + ScheduleList[i].Time + "</td>" +
+            "<td>" + ScheduleList[i].MODE + "</td>" +
+            "</tr>";
+ 
+        SetData.append(Data);
+        console.log($('#scheduleList tr').length)
+            $("#Load").html(" ")  
+    }
     }
 });
 
-//$('#btnplaceorder').click(function () {
-//    $.ajax({
-//        url: 'https://localhost:44372/api/Schedule/CheckEmail',
-//        method: "POST",
-//        data: {
-//            ID: $('#departmentsDropdown').val()
-            
-            
-//        },
-//        success: function () {
-//            alert("booked")
 
-//        },
-//        error: function () {
-//        }
-//    })
-//})
-//$('#btnplaceorder').click(function () {
-//    $.ajax({
-//        url: 'https://localhost:44372/api/Schedule/CheckEmail',
-//        method: "POST",
-//        data: {
-//            ID: $('#departmentsDropdown').val()
+$('#btnauditlist').click(function () {
+
+    schedule.classList.add("hide")
+    schedulelist.classList.remove("show")
+    auditlist.classList.add("show")
+
+    $('#auditList').empty();
+   
+
+    $('#Load').html("Loading....")
+    $.get("https://localhost:44372/api/Schedule/GetAudit", null, Bind);
+    function Bind(AuditList) {
+        var SetData = $('#auditList');
+        for (var i = 0; i < AuditList.length; i++) {
+            var Data = "<tr class='row_" + AuditList[i].ID + "'>" +
+                "<td>" + AuditList[i].FirstName + "</td>" +
+                "<td>" + AuditList[i].Operation + "</td>" +
+                "<td>" + AuditList[i].TopicName + "</td>" +
+                "<td>" + AuditList[i].CreatedDateTime + "</td>" +
+                "</tr>";
+            SetData.append(Data);
+            $("#Load").html(" ")
+        }
+    }
+});
 
 
-//        },
-//        success: function () {
-//            alert("booked")
-
-//        },
-//        error: function () {
-//        }
-//    })
-//})

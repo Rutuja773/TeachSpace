@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using System.Diagnostics;
@@ -15,6 +16,7 @@ namespace TeachSpace.Web.Controllers
 {
     public class AccountController : ApiController
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         //private User _currentUser;
         private TeachSpaceDBEntities entities = new TeachSpaceDBEntities();
         private object varhashedBytes;
@@ -36,6 +38,7 @@ namespace TeachSpace.Web.Controllers
                     ObjectParameter errorMessage = new ObjectParameter("errorMessage", typeof(string));
                     entities.sp_Registeration(model.FirstName, model.LastName, model.Address, model.Email, model.Password, model.DOB,model.IsAdmin, errorMessage);
                     entities.SaveChanges();
+                    logger.Info("Registration Successful");
                 }
             }
         }
@@ -58,6 +61,7 @@ namespace TeachSpace.Web.Controllers
                             if (_currentUser.IsAdmin)
                             {
                                 var adminUrl = this.Url.Content("https://localhost:44305/Home/Schedule");
+                                logger.Info("Admin Login Successful");
                                 return Request.CreateResponse(HttpStatusCode.Created,
                                                          new { Success = true, RedirectUrl = adminUrl });
 
@@ -69,8 +73,11 @@ namespace TeachSpace.Web.Controllers
 
                             
                             var newUrl = this.Url.Content("https://localhost:44305/Home/Event");
+                            logger.Info("User Login Successful");
                             return Request.CreateResponse(HttpStatusCode.OK,
                                                      new { Success = true, RedirectUrl = newUrl });
+                           
+
                         }
 
                     }

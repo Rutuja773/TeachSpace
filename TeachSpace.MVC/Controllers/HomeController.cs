@@ -31,6 +31,14 @@ namespace TeachSpace.MVC.Controllers
         {
             return View();
         }
+        public ActionResult Logout()
+        {
+            return View();
+        }
+        public ActionResult Audit()
+        {
+            return View();
+        }
 
 
     }

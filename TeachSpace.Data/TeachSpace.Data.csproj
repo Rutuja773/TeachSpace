@@ -62,10 +62,16 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>TeachSpaceModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sp_GetAudit_Result.cs">
+      <DependentUpon>TeachSpaceModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_GetSchedule_Result.cs">
       <DependentUpon>TeachSpaceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetTopicNames_Result.cs">
+      <DependentUpon>TeachSpaceModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_GetUserSchedule_Result.cs">
       <DependentUpon>TeachSpaceModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetUsersEmail_Result.cs">

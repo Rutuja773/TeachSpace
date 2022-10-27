@@ -134,6 +134,3 @@ form.addEventListener('submit', function (e) {
 
 
 
-//$("#login").click(function () {
-//    window.location.href = "https://localhost:44359/BookBlogger/Login";
-//});

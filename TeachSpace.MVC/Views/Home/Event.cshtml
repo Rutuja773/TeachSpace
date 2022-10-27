@@ -1,8 +1,9 @@
-﻿<head>
+﻿<!--<head>
     <link href="~/Content/css/Event.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    @*<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>*@
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>-->
+@*<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>*@
+<!--<script defer src="~/Content/Js/Event.js"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -11,45 +12,161 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#">
-                    <span class="link-name">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="link-name">Schedule</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="link-name">Reschedule</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="link-name">LogOut</span>
-                </a>
-            </li>
+                <button id="btnstudentlist" type="submit">Event</button>-->
+@*<a href="#">
+        <span class="link-name">Dashboard</span>
+    </a>*@
+<!--</li>
+<li>
+    <button id="btneventlist" type="submit">MyCourses</button>-->
+@*<a href="#">
+        <span class="link-name">Schedule</span>
+    </a>*@
+<!--</li>
+<li>-->
+@*<a href="#">
+        <span class="link-name">LogOut</span>
+    </a>*@
+<!--<button  type="submit">Logout</button>
+        </li>
 
-        </ul>
+    </ul>
+</div>-->
+@*home Content*@
+<!--<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu'></i>
+            <span class="dashboard">Dashboard</span>
+
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search..." />
+            <i class='bx bx-search-alt-2'></i>
+        </div>
+        <div class="profile-details">
+            <span class="admin-name">Admin</span>
+        </div>
+    </nav>
+
+
+    <div id="Ilist">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>FirstName</th>
+                    <th>Email</th>
+                    <th>Topic Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Mode</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleList">
+                <tr id="Load" style="color:red"></tr>
+            </tbody>
+        </table>
+ </div>
+
+</section>
+</body>-->
+
+
+<head>
+    <link href="~/Content/css/Event.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <script defer src="~/Content/Js/Event.js"></script>
+
+
+
+    <title>TeachBackSession</title>
+    <style>
+        #Ilist{
+            display:none;
+        }
+        .show {
+            display: block;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="banner-navbar">
+            <img src="~/Content/Images/logo 2.jpg" style="width:55px; height:55px;" />
+            <ul>
+                <li><a href="#" target="_blank">Home</a></li>
+                @*<li><a href="https://localhost:44305/Home/Logout">Logout</a></li>*@
+                @*<li class="btn btn-info btnlogin"><a href="https://localhost:44305/Home/Logout">Logout</a></li>*@
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Teach back session</h1>
+            <p>Explore our knowledge and deliver the<br> best performance with our team</p>
+            <div>
+                <button id="btnstudentlist" type="submit">Event</button>
+                <button id="btneventlist" type="submit">MyCourses</button>
+                @*<button type="button"><span></span>Join NowS</button>*@
+                @*<button type="button"><a href="EnrollNow.html" target="_blank"><span></span>Enroll Now</a></button>*@
+            </div>
+        </div>
+
+    </div>
+    <div id="Ilist">
+        <table class="event-table">
+            <thead>
+                <tr>
+                    @*<th>Schedule ID</th>*@
+                    <th>FirstName</th>
+                    <th>Email</th>
+                    <th>Topic Name</th>
+                    <th>Exam Date</th>
+                    <th>Exam Time</th>
+                    <th>Mode</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleList">
+                <tr id="Load" style="color:red"></tr>
+            </tbody>
+        </table>
     </div>
 
-    @*home Content*@
-    <section class="home-section">
-        <nav>
-            <div class="sidebar-button">
-                <i class='bx bx-menu'></i>
-                <span class="dashboard">Dashboard</span>
 
-            </div>
-            <div class="search-box">
-                <input type="text" placeholder="Search..." />
-                <i class='bx bx-search-alt-2'></i>            
-            </div>
-            <div class="profile-details">
-                <span class="admin-name">Admin</span>
-            </div>
-        </nav>
+    @*<table class="course-table">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>My Courses</th>
+                <th>Description</th>
+                <th>Course Duration</th>
+                <th>Referal link</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>JavaScript</td>
+                <td>
+                    It is an interpreted, full-fledged programming language
+                    that enables dynamic interactivity on websites when applied to an HTML document.
+                </td>
+                <td>25 days</td>
+                <td>https://youtu.be/zBPeGR48_vE</td>
+            </tr>
+        </tbody>
+    </table>*@
 
-    </section>
+
+
+
+
+
+
 </body>

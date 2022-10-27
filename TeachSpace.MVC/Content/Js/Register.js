@@ -160,26 +160,7 @@ form.addEventListener('input',function (e) {
     }
 });
 
-//form.addEventListener('submit', function (e) {
-//    // prevent the form from submitting
-//    e.preventDefault();
 
-//    // validate fields
-//    let isFullNameValid = checkFullName(),
-//        isEmailValid = checkEmail(),
-//        isPasswordValid = checkPassword(),
-//        isConfirmPasswordValid = checkConfirmPassword();
-
-//    let isFormValid = isFullNameValid &&
-//        isEmailValid &&
-//        isPasswordValid &&
-//        isConfirmPasswordValid;
-
-//    // submit to the server if the form is valid
-//    if (isFormValid) {
-
-//    }
-//});
 form.addEventListener('submit', function (e) {
     // prevent the form from submitting
     e.preventDefault();
@@ -203,7 +184,6 @@ form.addEventListener('submit', function (e) {
         $.ajax({
             url: 'https://localhost:44372/api/Account/register',
             method: 'POST',
-            /*data: model,*/
             data: {
                 firstname: $('#txtFirstName').val(),
                 lastname: $('#txtLastName').val(),
@@ -212,36 +192,14 @@ form.addEventListener('submit', function (e) {
                 password: $('#txtPassword').val(),      
                 dob: $('#txtDOB').val()
             },
-
-
-
             success: function () {
-                //$('#successModal').modal('show');
-                $.ajax({
-                    url: 'https://localhost:44372/api/Account/login',
-                    method: 'POST',
-                    data: {
-                        email: $('#txtEmail').val(),
-                        password: $('#txtPassword').val()
-                    },
-                    success: function (res) {
-                        window.location.href = res.RedirectUrl;
-                    },
-                    error: function (jqXHR) {
-                        //$('#divErrorText').text(jqXHR.responseText);
-                        //$('#divError').show('fade');
-                        $("#validation-success").html("<div class='k-messagebox k-messagebox-error'>Wrong Password or Username</div>");
-                    }
-                });
+
+                window.location.href = "https://localhost:44305/Home/Login";
             },
             error: function (jqXHR) {
-                //$('#divErrorText').text(jqXHR.responseText);
-                //$('#divError').show('fade');
+               
                 $("#validation-success").html("<div class='k-messagebox k-messagebox-error'>Some Internal Error</div>");
             }
-
-
-
         });
         /*});*/
     }
@@ -249,6 +207,3 @@ form.addEventListener('submit', function (e) {
 
 
 
-//$("#login").click(function () {
-//    window.location.href = "https://localhost:44359/BookBlogger/Login";
-//});

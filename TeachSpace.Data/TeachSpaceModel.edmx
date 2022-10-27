@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TeachSpaceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TeachSpaceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Audit">
           <Key>
             <PropertyRef Name="ID" />
@@ -78,6 +78,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateTopic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_CreateSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserID" Type="int" Mode="In" />
           <Parameter Name="TopicID" Type="int" Mode="In" />
@@ -86,8 +89,12 @@
           <Parameter Name="Mode" Type="varchar" Mode="In" />
           <Parameter Name="ErrorMessage" Type="varchar" Mode="InOut" />
         </Function>
+        <Function Name="sp_GetAudit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetTopicNames" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetUserSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetUsersEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_Registeration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FirstName" Type="varchar" Mode="In" />
@@ -113,8 +120,7 @@
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TeachSpaceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -229,6 +235,13 @@
             <Parameter Name="IsAdmin" Mode="In" Type="Boolean" />
             <Parameter Name="ErrorMessage" Mode="InOut" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_GetUserSchedule" ReturnType="Collection(TeachSpaceDBModel.sp_GetUserSchedule_Result)">
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetAudit" ReturnType="Collection(TeachSpaceDBModel.sp_GetAudit_Result)" />
+          <FunctionImport Name="CreateTopic">
+            <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_GetSchedule_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -246,6 +259,22 @@
         <ComplexType Name="sp_GetUsersEmail_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUserSchedule_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="Time" Name="Time" Nullable="true" />
+          <Property Type="String" Name="MODE" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAudit_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Operation" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TopicName" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="CreatedDateTime" Nullable="true" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -337,6 +366,31 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Registeration" FunctionName="TeachSpaceDBModel.Store.sp_Registeration" />
+          <FunctionImportMapping FunctionImportName="sp_GetUserSchedule" FunctionName="TeachSpaceDBModel.Store.sp_GetUserSchedule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TeachSpaceDBModel.sp_GetUserSchedule_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="MODE" ColumnName="MODE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAudit" FunctionName="TeachSpaceDBModel.Store.sp_GetAudit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TeachSpaceDBModel.sp_GetAudit_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+                <ScalarProperty Name="TopicName" ColumnName="TopicName" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CreateTopic" FunctionName="TeachSpaceDBModel.Store.CreateTopic" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

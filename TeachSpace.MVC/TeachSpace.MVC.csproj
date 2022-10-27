@@ -138,6 +138,9 @@
     <Content Include="Content\css\Event.css" />
     <Content Include="Content\css\Register.css" />
     <Content Include="Content\css\Schedule.css" />
+    <Content Include="Content\Images\image2.jpg" />
+    <Content Include="Content\Images\logo 2.jpg" />
+    <Content Include="Content\Js\Event.js" />
     <Content Include="Content\Js\Login.js" />
     <Content Include="Content\Js\Register.js" />
     <Content Include="Content\Js\Schedule.js" />
@@ -174,6 +177,8 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Schedule.cshtml" />
     <Content Include="Views\Home\Event.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Home\Audit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
